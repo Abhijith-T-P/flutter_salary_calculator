@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:salary_calculator/display.dart';
 
 class Calculator extends StatefulWidget {
   const Calculator({super.key});
@@ -22,6 +23,29 @@ class _CalculatorState extends State<Calculator> {
   String? d_list;
   String? gender = "";
   String? m_status = "";
+
+  void submit() {
+  var name = "${f_name.text} ${l_name.text}";
+  try {
+    double salary = double.parse(bs.text);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DisplayResult(
+          Name: name,
+          Department: d_list,
+          Gender: gender,
+          Marital: m_status,
+          Salary: salary.toString(),
+        ),
+      ),
+    );
+  } catch (e) {
+   
+    print("Invalid salary format");
+  }
+}
+
 
   void clear() {
     _formKey.currentState?.reset();
@@ -180,7 +204,7 @@ class _CalculatorState extends State<Calculator> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ElevatedButton(onPressed: () {}, child: Text("Submit")),
+ElevatedButton(onPressed: submit, child: Text("Submit")),
                       ElevatedButton(
                           onPressed: () {
                             clear();
